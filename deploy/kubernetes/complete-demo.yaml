@@ -10,7 +10,7 @@ metadata:
   name: carts
   labels:
     name: carts
-  namespace: sock-shop
+  namespace: team-sock-shop
 spec:
   replicas: 1
   selector:
@@ -53,7 +53,7 @@ spec:
           emptyDir:
             medium: Memory
       nodeSelector:
-        beta.kubernetes.io/os: linux
+        kubernetes.io/os: linux
 ---
 apiVersion: v1
 kind: Service
@@ -63,7 +63,7 @@ metadata:
         prometheus.io/scrape: 'true'
   labels:
     name: carts
-  namespace: sock-shop
+  namespace: team-sock-shop
 spec:
   ports:
     # the port that this service should serve on
@@ -78,7 +78,7 @@ metadata:
   name: carts-db
   labels:
     name: carts-db
-  namespace: sock-shop
+  namespace: team-sock-shop
 spec:
   replicas: 1
   selector:
@@ -112,7 +112,7 @@ spec:
           emptyDir:
             medium: Memory
       nodeSelector:
-        beta.kubernetes.io/os: linux
+        kubernetes.io/os: linux
 ---
 apiVersion: v1
 kind: Service
@@ -120,7 +120,7 @@ metadata:
   name: carts-db
   labels:
     name: carts-db
-  namespace: sock-shop
+  namespace: team-sock-shop
 spec:
   ports:
     # the port that this service should serve on
@@ -135,7 +135,7 @@ metadata:
   name: catalogue
   labels:
     name: catalogue
-  namespace: sock-shop
+  namespace: team-sock-shop
 spec:
   replicas: 1
   selector:
@@ -183,7 +183,7 @@ spec:
           initialDelaySeconds: 180
           periodSeconds: 3
       nodeSelector:
-        beta.kubernetes.io/os: linux
+        kubernetes.io/os: linux
 ---
 apiVersion: v1
 kind: Service
@@ -193,7 +193,7 @@ metadata:
         prometheus.io/scrape: 'true'
   labels:
     name: catalogue
-  namespace: sock-shop
+  namespace: team-sock-shop
 spec:
   ports:
     # the port that this service should serve on
@@ -208,7 +208,7 @@ metadata:
   name: catalogue-db
   labels:
     name: catalogue-db
-  namespace: sock-shop
+  namespace: team-sock-shop
 spec:
   replicas: 1
   selector:
@@ -231,7 +231,7 @@ spec:
         - name: mysql
           containerPort: 3306
       nodeSelector:
-        beta.kubernetes.io/os: linux
+        kubernetes.io/os: linux
 ---
 apiVersion: v1
 kind: Service
@@ -239,7 +239,7 @@ metadata:
   name: catalogue-db
   labels:
     name: catalogue-db
-  namespace: sock-shop
+  namespace: team-sock-shop
 spec:
   ports:
     # the port that this service should serve on
@@ -252,7 +252,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: front-end
-  namespace: sock-shop
+  namespace: team-sock-shop
 spec:
   replicas: 1
   selector:
@@ -298,7 +298,7 @@ spec:
           initialDelaySeconds: 30
           periodSeconds: 3
       nodeSelector:
-        beta.kubernetes.io/os: linux
+        kubernetes.io/os: linux
 ---
 apiVersion: v1
 kind: Service
@@ -308,13 +308,13 @@ metadata:
         prometheus.io/scrape: 'true'
   labels:
     name: front-end
-  namespace: sock-shop
+  namespace: team-sock-shop
 spec:
-  type: NodePort
+  type: ClusterIP
   ports:
-  - port: 80
+  - name: http
+    port: 80
     targetPort: 8079
-    nodePort: 30001
   selector:
     name: front-end
 ---
@@ -324,7 +324,7 @@ metadata:
   name: orders
   labels:
     name: orders
-  namespace: sock-shop
+  namespace: team-sock-shop
 spec:
   replicas: 1
   selector:
@@ -367,7 +367,7 @@ spec:
           emptyDir:
             medium: Memory
       nodeSelector:
-        beta.kubernetes.io/os: linux
+        kubernetes.io/os: linux
 ---
 apiVersion: v1
 kind: Service
@@ -377,7 +377,7 @@ metadata:
         prometheus.io/scrape: 'true'
   labels:
     name: orders
-  namespace: sock-shop
+  namespace: team-sock-shop
 spec:
   ports:
     # the port that this service should serve on
@@ -392,7 +392,7 @@ metadata:
   name: orders-db
   labels:
     name: orders-db
-  namespace: sock-shop
+  namespace: team-sock-shop
 spec:
   replicas: 1
   selector:
@@ -426,7 +426,7 @@ spec:
           emptyDir:
             medium: Memory
       nodeSelector:
-        beta.kubernetes.io/os: linux
+        kubernetes.io/os: linux
 ---
 apiVersion: v1
 kind: Service
@@ -434,7 +434,7 @@ metadata:
   name: orders-db
   labels:
     name: orders-db
-  namespace: sock-shop
+  namespace: team-sock-shop
 spec:
   ports:
     # the port that this service should serve on
@@ -449,7 +449,7 @@ metadata:
   name: payment
   labels:
     name: payment
-  namespace: sock-shop
+  namespace: team-sock-shop
 spec:
   replicas: 1
   selector:
@@ -494,7 +494,7 @@ spec:
           initialDelaySeconds: 180
           periodSeconds: 3
       nodeSelector:
-        beta.kubernetes.io/os: linux
+        kubernetes.io/os: linux
 ---
 apiVersion: v1
 kind: Service
@@ -504,7 +504,7 @@ metadata:
         prometheus.io/scrape: 'true'
   labels:
     name: payment
-  namespace: sock-shop
+  namespace: team-sock-shop
 spec:
   ports:
     # the port that this service should serve on
@@ -519,7 +519,7 @@ metadata:
   name: queue-master
   labels:
     name: queue-master
-  namespace: sock-shop
+  namespace: team-sock-shop
 spec:
   replicas: 1
   selector:
@@ -546,7 +546,7 @@ spec:
         ports:
         - containerPort: 80
       nodeSelector:
-        beta.kubernetes.io/os: linux
+        kubernetes.io/os: linux
 ---
 apiVersion: v1
 kind: Service
@@ -556,7 +556,7 @@ metadata:
         prometheus.io/scrape: 'true'
   labels:
     name: queue-master
-  namespace: sock-shop
+  namespace: team-sock-shop
 spec:
   ports:
     # the port that this service should serve on
@@ -571,7 +571,7 @@ metadata:
   name: rabbitmq
   labels:
     name: rabbitmq
-  namespace: sock-shop
+  namespace: team-sock-shop
 spec:
   replicas: 1
   selector:
@@ -608,7 +608,7 @@ spec:
         - containerPort: 9090
           name: exporter
       nodeSelector:
-        beta.kubernetes.io/os: linux
+        kubernetes.io/os: linux
 ---
 apiVersion: v1
 kind: Service
@@ -619,7 +619,7 @@ metadata:
         prometheus.io/port: '9090'
   labels:
     name: rabbitmq
-  namespace: sock-shop
+  namespace: team-sock-shop
 spec:
   ports:
     # the port that this service should serve on
@@ -639,7 +639,7 @@ metadata:
   name: session-db
   labels:
     name: session-db
-  namespace: sock-shop
+  namespace: team-sock-shop
 spec:
   replicas: 1
   selector:
@@ -668,7 +668,7 @@ spec:
               - SETUID
           readOnlyRootFilesystem: true
       nodeSelector:
-        beta.kubernetes.io/os: linux
+        kubernetes.io/os: linux
 ---
 apiVersion: v1
 kind: Service
@@ -676,7 +676,7 @@ metadata:
   name: session-db
   labels:
     name: session-db
-  namespace: sock-shop
+  namespace: team-sock-shop
 spec:
   ports:
     # the port that this service should serve on
@@ -691,7 +691,7 @@ metadata:
   name: shipping
   labels:
     name: shipping
-  namespace: sock-shop
+  namespace: team-sock-shop
 spec:
   replicas: 1
   selector:
@@ -736,7 +736,7 @@ spec:
           emptyDir:
             medium: Memory
       nodeSelector:
-        beta.kubernetes.io/os: linux
+        kubernetes.io/os: linux
 ---
 apiVersion: v1
 kind: Service
@@ -746,7 +746,7 @@ metadata:
         prometheus.io/scrape: 'true'
   labels:
     name: shipping
-  namespace: sock-shop
+  namespace: team-sock-shop
 spec:
   ports:
     # the port that this service should serve on
@@ -762,7 +762,7 @@ metadata:
   name: user
   labels:
     name: user
-  namespace: sock-shop
+  namespace: team-sock-shop
 spec:
   replicas: 1
   selector:
@@ -810,7 +810,7 @@ spec:
           initialDelaySeconds: 180
           periodSeconds: 3
       nodeSelector:
-        beta.kubernetes.io/os: linux
+        kubernetes.io/os: linux
 ---
 apiVersion: v1
 kind: Service
@@ -820,7 +820,7 @@ metadata:
         prometheus.io/scrape: 'true'
   labels:
     name: user
-  namespace: sock-shop
+  namespace: team-sock-shop
 spec:
   ports:
     # the port that this service should serve on
@@ -836,7 +836,7 @@ metadata:
   name: user-db
   labels:
     name: user-db
-  namespace: sock-shop
+  namespace: team-sock-shop
 spec:
   replicas: 1
   selector:
@@ -871,7 +871,7 @@ spec:
           emptyDir:
             medium: Memory
       nodeSelector:
-        beta.kubernetes.io/os: linux
+        kubernetes.io/os: linux
 ---
 apiVersion: v1
 kind: Service
@@ -879,7 +879,7 @@ metadata:
   name: user-db
   labels:
     name: user-db
-  namespace: sock-shop
+  namespace: team-sock-shop
 spec:
   ports:
     # the port that this service should serve on
